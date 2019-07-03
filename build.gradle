@@ -35,6 +35,7 @@ configurations.all {
     exclude group: 'batik'
     exclude group: 'cglib'
     exclude group: 'checkstyle'
+    exclude group: 'com.codahale.metrics'
     exclude group: 'com.jamonapi'
     exclude group: 'com.mortennobel'
     exclude group: 'com.zeroc', module: 'freeze'
@@ -71,6 +72,12 @@ configurations.all {
 }
 
 dependencies {
+    // Upgrade from the version (3.0.2) inherited transitively which is also
+    // using the deprecated `groupId` of "com.codahale.metrics"
+    compile 'io.dropwizard.metrics:metrics-graphite:3.2.6'
+    compile 'io.dropwizard.metrics:metrics-jvm:3.2.6'
+    compile 'io.dropwizard.metrics:metrics-logback:3.2.6'
+    // Upgrade from the version (1.1.1) inherited transitively
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compile ('com.glencoesoftware.omero:omero-ms-core:0.4.1') {
         exclude group: 'org.testng', module: 'testng'
