@@ -155,4 +155,40 @@ public class RenderingUtilsTest {
         }
         testAllFlips(src, sizeX, sizeY);
     }
+
+    @Test
+    public void testRedOpaque() {
+        int[] rgba = RenderingUtils.splitHTMLColor("FF0000FF");
+        Assert.assertEquals(255, rgba[0]);
+        Assert.assertEquals(0, rgba[1]);
+        Assert.assertEquals(0, rgba[2]);
+        Assert.assertEquals(255, rgba[3]);
+    }
+
+    @Test
+    public void testRedTransparent() {
+        int[] rgba = RenderingUtils.splitHTMLColor("FF000000");
+        Assert.assertEquals(255, rgba[0]);
+        Assert.assertEquals(0, rgba[1]);
+        Assert.assertEquals(0, rgba[2]);
+        Assert.assertEquals(0, rgba[3]);
+    }
+
+    @Test
+    public void testGreenOpaque() {
+        int[] rgba = RenderingUtils.splitHTMLColor("00FF00FF");
+        Assert.assertEquals(0, rgba[0]);
+        Assert.assertEquals(255, rgba[1]);
+        Assert.assertEquals(0, rgba[2]);
+        Assert.assertEquals(255, rgba[3]);
+    }
+
+    @Test
+    public void testBlueOpaque() {
+        int[] rgba = RenderingUtils.splitHTMLColor("0000FFFF");
+        Assert.assertEquals(0, rgba[0]);
+        Assert.assertEquals(0, rgba[1]);
+        Assert.assertEquals(255, rgba[2]);
+        Assert.assertEquals(255, rgba[3]);
+    }
 }
