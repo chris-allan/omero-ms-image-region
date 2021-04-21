@@ -29,6 +29,7 @@ import com.glencoesoftware.omero.ms.core.OmeroRequestCtx;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.json.Json;
+import ome.xml.model.primitives.Color;
 import omeis.providers.re.data.RegionDef;
 import omero.constants.projection.ProjectionType;
 
@@ -66,7 +67,7 @@ public class ImageRegionCtx extends OmeroRequestCtx {
     /** Channel settings - handled at the Verticle level*/
     public List<Integer> channels;
     public List<Double[]> windows;
-    public List<String> colors;
+    public List<Color> colors;
 
     /** Color mode (g == grey scale; c == rgb) */
     public String m;
@@ -250,7 +251,7 @@ public class ImageRegionCtx extends OmeroRequestCtx {
         String[] channelArray = channelInfo.split(",", -1);
         channels = new ArrayList<Integer>();
         windows = new ArrayList<Double[]>();
-        colors = new ArrayList<String>();
+        colors = new ArrayList<Color>();
         for (String channel : channelArray) {
             try {
                 // chan  1|12:1386r$0000FF
@@ -279,7 +280,7 @@ public class ImageRegionCtx extends OmeroRequestCtx {
                         range[1] = Double.parseDouble(rangeStr[1]);
                     }
                 }
-                colors.add(color);
+                colors.add(RenderingUtils.splitHTMLColor(color));
                 windows.add(range);
                 log.debug("Adding channel: {}, color: {}, window: {}",
                         active, color, window);

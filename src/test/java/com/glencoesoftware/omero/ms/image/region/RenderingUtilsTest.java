@@ -18,6 +18,8 @@
 
 package com.glencoesoftware.omero.ms.image.region;
 
+import java.awt.Color;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -158,11 +160,11 @@ public class RenderingUtilsTest {
 
     @Test
     public void testRedOpaque() {
-        int[] rgba = RenderingUtils.splitHTMLColor("FF0000FF");
-        Assert.assertEquals(255, rgba[0]);
-        Assert.assertEquals(0, rgba[1]);
-        Assert.assertEquals(0, rgba[2]);
-        Assert.assertEquals(255, rgba[3]);
+        Color color = new Color(Integer.parseUnsignedInt("FF0000FF", 16), true);
+        Assert.assertEquals(color.getRed(), 255);
+        Assert.assertEquals(color.getGreen(), 0);
+        Assert.assertEquals(color.getBlue(), 0);
+        Assert.assertEquals(color.getAlpha(), 255);
     }
 
     @Test
