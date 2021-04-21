@@ -386,6 +386,28 @@ public class RenderingUtils {
     }
 
     /**
+     * Update quantization settings on the rendering engine based on the
+     * current context.
+     * @param renderer fully initializaed rendered
+     * @param families list of possible mapping families
+     * @param c channel to update
+     * @param map source settings to apply to the <code>renderer</code>
+     */
+    private static void updateQuantization(
+            Renderer renderer, List<Family> families, int c,
+            Map<String, Map<String, Object>> map) {
+        log.debug("Quantization enabled");
+        Map<String, Object> quantization = map.get("quantization");
+        String family = quantization.get("family").toString();
+        double coefficient = (Double) quantization.get("coefficient");
+        for (Family f : families) {
+            if (f.getValue().equals(family)) {
+                renderer.setQuantizationMap(c, f, coefficient, false);
+            }
+        }
+    }
+
+    /**
      * Update settings on the rendering engine based on the current context.
      * @param renderer fully initialized renderer
      * @param sizeC number of channels
@@ -433,15 +455,7 @@ public class RenderingUtils {
                                 maps.get(c);
                         if (map != null) {
                             if (map.containsKey("quantization")) {
-                                log.info("Quantization enabled");
-                                Map<String, Object> quantization = map.get("quantization");
-                                String family = quantization.get("family").toString();
-                                double coefficient = (Double) quantization.get("coefficient");
-                                for (Family f : families) {
-                                    if (f.getValue().equals(family)) {
-                                        renderer.setQuantizationMap(c, f, coefficient, false);
-                                    }
-                                }
+                                updateQuantization(renderer, families, c, map);
                             }
                             Map<String, Object> reverse = map.get("reverse");
                             if (reverse == null) {
