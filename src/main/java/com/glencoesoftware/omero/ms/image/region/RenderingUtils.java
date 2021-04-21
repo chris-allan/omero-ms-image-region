@@ -388,7 +388,7 @@ public class RenderingUtils {
     /**
      * Update quantization settings on the rendering engine based on the
      * current context.
-     * @param renderer fully initializaed rendered
+     * @param renderer fully initialized renderer
      * @param families list of possible mapping families
      * @param c channel to update
      * @param map source settings to apply to the <code>renderer</code>
